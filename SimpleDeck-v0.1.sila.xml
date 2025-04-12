@@ -1,0 +1,168 @@
+<Feature xmlns="http://www.sila-standard.org" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" Category="examples" FeatureVersion="1.0" MaturityLevel="Verified" Originator="org.silastandard" SiLA2Version="1.0" xsi:schemaLocation="http://www.sila-standard.org https://gitlab.com/SiLA2/sila_base/raw/master/schema/FeatureDefinition.xsd">
+  <Identifier>SimpleDeckServer</Identifier>
+  <DisplayName>Simple Deck Server</DisplayName>
+  <Description>Example implementation of a minimum Feature. Provides a Greeting to the Client
+    and a StartYear property, informing about the year the Server has been started.</Description>
+  <Command>
+    <Identifier>PutItem</Identifier>
+    <DisplayName>Put Item</DisplayName>
+    <Description>Does what it says: returns "Hello SiLA 2 + [Name]" to the client.</Description>
+    <Observable>No</Observable>
+    <Parameter>
+      <Identifier>Spot</Identifier>
+      <DisplayName>SpotName</DisplayName>
+      <Description>The name of the Spot.</Description>
+      <DataType>
+        <Basic>String</Basic>
+      </DataType>
+    </Parameter>
+    <Parameter>
+      <Identifier>UUID</Identifier>
+      <DisplayName>UUID</DisplayName>
+      <Description>The UUID of the New Object</Description>
+      <DataType><Basic>String</Basic></DataType>
+    </Parameter>
+    <Parameter>
+      <Identifier>Type</Identifier>
+      <DisplayName>Type</DisplayName>
+      <Description>The type of the New Object</Description>
+      <DataType><Basic>String</Basic></DataType>
+    </Parameter>
+
+    <Response>
+      <Identifier>Result</Identifier>
+      <DisplayName>Result</DisplayName>
+      <Description>The result of the operation.</Description>
+      <DataType>
+        <Basic>Boolean</Basic>
+      </DataType>
+    </Response>
+  </Command>
+  <Command>
+    <Identifier>DeleteItem</Identifier>
+    <DisplayName>Delete Item</DisplayName>
+    <Description>Delete Item from specified Spot</Description>
+    <Observable>No</Observable>
+    <Parameter>
+      <Identifier>Spot</Identifier>
+      <DisplayName>SpotName</DisplayName>
+      <Description>The name of the Spot</Description>
+      <DataType>
+        <Basic>String</Basic>
+      </DataType>
+    </Parameter>
+    <Response>
+      <Identifier>Result</Identifier>
+      <DisplayName>Result</DisplayName>
+      <Description>The result of the operation.</Description>
+      <DataType>
+        <Basic>Boolean</Basic>
+      </DataType>
+    </Response>
+  </Command>
+  <Command>
+    <Identifier>MoveItem</Identifier>
+    <DisplayName>Move Item</DisplayName>
+    <Description>Move Item from and to specified Spot</Description>
+    <Observable>No</Observable>
+    <Parameter>
+      <Identifier>From</Identifier>
+      <DisplayName>From Spot</DisplayName>
+      <Description>From Spot</Description>
+      <DataType>
+        <Basic>String</Basic>
+      </DataType>
+    </Parameter>
+    <Parameter>
+      <Identifier>To</Identifier>
+      <DisplayName>To Spot</DisplayName>
+      <Description>To Spot</Description>
+      <DataType>
+        <Basic>String</Basic>
+      </DataType>
+    </Parameter>
+  </Command>
+  <Property>
+    <Identifier>StartDate</Identifier>
+    <DisplayName>Start Date</DisplayName>
+    <Description>Returns the date the SiLA Server has been started in.</Description>
+    <Observable>No</Observable>
+    <DataType>
+      <Basic>String</Basic>
+    </DataType>
+  </Property>
+  <Property>
+    <Identifier>Status</Identifier>
+    <DisplayName>Status</DisplayName>
+    <Description>Returns the Status of the workbench.</Description>
+    <Observable>Yes</Observable>
+    <DataType>
+      <Structure>
+        <Element>
+          <Identifier>A</Identifier>
+          <DisplayName>A</DisplayName>
+          <Description>Spot A</Description>
+          <DataType>
+            <Basic>String</Basic>
+          </DataType>
+        </Element>
+        <Element>
+          <Identifier>B</Identifier>
+          <DisplayName>B</DisplayName>
+          <Description>Spot B</Description>
+          <DataType>
+            <Basic>String</Basic>
+          </DataType>
+        </Element>
+        <Element>
+          <Identifier>C</Identifier>
+          <DisplayName>C</DisplayName>
+          <Description>Spot C</Description>
+          <DataType>
+            <Basic>String</Basic>
+          </DataType>
+        </Element>
+        <Element>
+          <Identifier>D</Identifier>
+          <DisplayName>D</DisplayName>
+          <Description>Spot D</Description>
+          <DataType>
+            <Basic>String</Basic>
+          </DataType>
+        </Element>
+        <Element>
+          <Identifier>E</Identifier>
+          <DisplayName>E</DisplayName>
+          <Description>Spot E</Description>
+          <DataType>
+            <Basic>String</Basic>
+          </DataType>
+        </Element>
+        <Element>
+          <Identifier>F</Identifier>
+          <DisplayName>F</DisplayName>
+          <Description>Spot F</Description>
+          <DataType>
+            <Basic>String</Basic>
+          </DataType>
+        </Element>
+        <Element>
+          <Identifier>G</Identifier>
+          <DisplayName>G</DisplayName>
+          <Description>Spot G</Description>
+          <DataType>
+            <Basic>String</Basic>
+          </DataType>
+        </Element>
+        <Element>
+          <Identifier>H</Identifier>
+          <DisplayName>H</DisplayName>
+          <Description>Spot H</Description>
+          <DataType>
+            <Basic>String</Basic>
+          </DataType>
+        </Element>
+      </Structure>
+    </DataType>
+  </Property>
+</Feature>
