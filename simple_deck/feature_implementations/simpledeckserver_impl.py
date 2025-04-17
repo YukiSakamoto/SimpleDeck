@@ -42,7 +42,7 @@ class SimpleDeckServerImpl(SimpleDeckServerBase):
         raise NotImplementedError  # TODO
 
     def DeleteItem(self, Spot: str, *, metadata: MetadataDict) -> DeleteItem_Responses:
-        url = "http://localhost:8000/delete_item/{}".format(Spot)
+        url = "http://localhost:8000/delete/{}/".format(Spot)
         response = requests.delete(url)
         print("DeleteItem: Status Code: {}".format(response.status_code))
         if response.status_code == 200:

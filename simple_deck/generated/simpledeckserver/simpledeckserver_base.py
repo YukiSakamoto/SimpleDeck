@@ -133,4 +133,9 @@ class SimpleDeckServerBase(FeatureImplementationBase, ABC):
 
         :param metadata: The SiLA Client Metadata attached to the call
 
+        :return:
+
+            - Result: The result of the operation.
+
+
         """

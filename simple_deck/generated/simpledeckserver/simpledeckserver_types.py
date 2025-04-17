@@ -22,4 +22,7 @@ class DeleteItem_Responses(NamedTuple):
 
 class MoveItem_Responses(NamedTuple):
 
-    pass
+    Result: bool
+    """
+    The result of the operation.
+    """

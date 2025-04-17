@@ -48,6 +48,7 @@ message MoveItem_Parameters {
 
 /* Responses of MoveItem */
 message MoveItem_Responses {
+  sila2.org.silastandard.Boolean Result = 1;  /* The result of the operation. */
 }
 
 /* Parameters for StartDate */

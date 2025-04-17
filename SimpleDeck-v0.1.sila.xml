@@ -81,6 +81,14 @@
         <Basic>String</Basic>
       </DataType>
     </Parameter>
+    <Response>
+      <Identifier>Result</Identifier>
+      <DisplayName>Result</DisplayName>
+      <Description>The result of the operation.</Description>
+      <DataType>
+        <Basic>Boolean</Basic>
+      </DataType>
+    </Response>
   </Command>
   <Property>
     <Identifier>StartDate</Identifier>
