@@ -16,6 +16,7 @@ if TYPE_CHECKING:
     from ..server import Server
 
 import requests
+import uuid
 class SimpleDeckServerImpl(SimpleDeckServerBase):
     def __init__(self, parent_server: Server) -> None:
         super().__init__(parent_server=parent_server)
@@ -24,22 +25,45 @@ class SimpleDeckServerImpl(SimpleDeckServerBase):
         raise NotImplementedError  # TODO
 
     def PutItem(self, Spot: str, UUID: str, Type: str, *, metadata: MetadataDict) -> PutItem_Responses:
-        url = "http://localhost:8000/put_item/{}".format(Spot)
+        url = "http://localhost:8000/put_item/{}/".format(Spot)
         payload = {
             "uuid": UUID,
-            "type": Type
+            "item_type": Type
         }
         response = requests.put(url, json = payload)
-        print("Status Code: {}".format(response.status_code))
+        print("PutItem: Status Code: {}".format(response.status_code))
+        print("Response Body: {}".format(response.json()))
         if response.status_code == 200:
-            return True
+            #return True
+            return PutItem_Responses(True)
         else:
-            return False
+            #return False
+            return PutItem_Responses(False)
         raise NotImplementedError  # TODO
 
     def DeleteItem(self, Spot: str, *, metadata: MetadataDict) -> DeleteItem_Responses:
-
+        url = "http://localhost:8000/delete_item/{}".format(Spot)
+        response = requests.delete(url)
+        print("DeleteItem: Status Code: {}".format(response.status_code))
+        if response.status_code == 200:
+            return DeleteItem_Responses(True)
+        elif response.status_code == 422:
+            return DeleteItem_Responses(False)
+        else:
+            return DeleteItem_Responses(False)
         raise NotImplementedError  # TODO
 
     def MoveItem(self, From: str, To: str, *, metadata: MetadataDict) -> MoveItem_Responses:
+        url = "http://localhost:8000/move"
+        payload = {
+            "from_spot": From,
+            "to_spot": To
+        }
+        response = requests.post(url, json = payload)
+        print("MoveItem: Status Code: {}".format(response.status_code))
+        print("Response Body: {}".format(response.json()))
+        if response.status_code == 200:
+            return MoveItem_Responses(True)
+        else:
+            return MoveItem_Responses(False)
         raise NotImplementedError  # TODO
