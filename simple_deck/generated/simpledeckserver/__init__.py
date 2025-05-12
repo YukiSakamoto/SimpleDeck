@@ -2,7 +2,15 @@
 from .simpledeckserver_base import SimpleDeckServerBase
 from .simpledeckserver_client import SimpleDeckServerClient
 from .simpledeckserver_feature import SimpleDeckServerFeature
-from .simpledeckserver_types import DeleteItem_Responses, MoveItem_Responses, PutItem_Responses
+from .simpledeckserver_types import (
+    ConsumableState_Responses,
+    DeleteItem_Responses,
+    MoveItem_Responses,
+    NewConsumable_Responses,
+    PutItem_Responses,
+    Refill_Responses,
+    Use_Responses,
+)
 
 __all__ = [
     "SimpleDeckServerBase",
@@ -11,4 +19,8 @@ __all__ = [
     "PutItem_Responses",
     "DeleteItem_Responses",
     "MoveItem_Responses",
+    "NewConsumable_Responses",
+    "Refill_Responses",
+    "Use_Responses",
+    "ConsumableState_Responses",
 ]

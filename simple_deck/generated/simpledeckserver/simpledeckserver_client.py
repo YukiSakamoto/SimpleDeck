@@ -12,8 +12,21 @@ if TYPE_CHECKING:
 
     from typing import Any, Iterable, Optional
 
-    from sila2.client import ClientMetadataInstance, ClientObservableProperty, ClientUnobservableProperty
-    from simpledeckserver_types import DeleteItem_Responses, MoveItem_Responses, PutItem_Responses
+    from sila2.client import (
+        ClientMetadataInstance,
+        ClientObservableCommandInstance,
+        ClientObservableProperty,
+        ClientUnobservableProperty,
+    )
+    from simpledeckserver_types import (
+        ConsumableState_Responses,
+        DeleteItem_Responses,
+        MoveItem_Responses,
+        NewConsumable_Responses,
+        PutItem_Responses,
+        Refill_Responses,
+        Use_Responses,
+    )
 
 
 class SimpleDeckServerClient:
@@ -53,5 +66,37 @@ class SimpleDeckServerClient:
     ) -> MoveItem_Responses:
         """
         Move Item from and to specified Spot
+        """
+        ...
+
+    def NewConsumable(
+        self, ItemType: str, Amount: int, *, metadata: Optional[Iterable[ClientMetadataInstance]] = None
+    ) -> NewConsumable_Responses:
+        """
+        New Consumable
+        """
+        ...
+
+    def Refill(
+        self, ItemType: str, Amount: int, *, metadata: Optional[Iterable[ClientMetadataInstance]] = None
+    ) -> Refill_Responses:
+        """
+        Refill
+        """
+        ...
+
+    def Use(
+        self, ItemType: str, Amount: int, *, metadata: Optional[Iterable[ClientMetadataInstance]] = None
+    ) -> Use_Responses:
+        """
+        Use
+        """
+        ...
+
+    def ConsumableState(
+        self, *, metadata: Optional[Iterable[ClientMetadataInstance]] = None
+    ) -> ClientObservableCommandInstance[ConsumableState_Responses]:
+        """
+        ConsumableState
         """
         ...

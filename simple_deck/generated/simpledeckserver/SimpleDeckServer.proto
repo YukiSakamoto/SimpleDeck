@@ -12,6 +12,18 @@ service SimpleDeckServer {
   rpc DeleteItem (sila2.org.silastandard.examples.simpledeckserver.v1.DeleteItem_Parameters) returns (sila2.org.silastandard.examples.simpledeckserver.v1.DeleteItem_Responses) {}
   /* Move Item from and to specified Spot */
   rpc MoveItem (sila2.org.silastandard.examples.simpledeckserver.v1.MoveItem_Parameters) returns (sila2.org.silastandard.examples.simpledeckserver.v1.MoveItem_Responses) {}
+  /* New Consumable */
+  rpc NewConsumable (sila2.org.silastandard.examples.simpledeckserver.v1.NewConsumable_Parameters) returns (sila2.org.silastandard.examples.simpledeckserver.v1.NewConsumable_Responses) {}
+  /* Refill */
+  rpc Refill (sila2.org.silastandard.examples.simpledeckserver.v1.Refill_Parameters) returns (sila2.org.silastandard.examples.simpledeckserver.v1.Refill_Responses) {}
+  /* Use */
+  rpc Use (sila2.org.silastandard.examples.simpledeckserver.v1.Use_Parameters) returns (sila2.org.silastandard.examples.simpledeckserver.v1.Use_Responses) {}
+  /* ConsumableState */
+  rpc ConsumableState (sila2.org.silastandard.examples.simpledeckserver.v1.ConsumableState_Parameters) returns (sila2.org.silastandard.CommandConfirmation) {}
+  /* Monitor the state of ConsumableState */
+  rpc ConsumableState_Info (sila2.org.silastandard.CommandExecutionUUID) returns (stream sila2.org.silastandard.ExecutionInfo) {}
+  /* Retrieve result of ConsumableState */
+  rpc ConsumableState_Result(sila2.org.silastandard.CommandExecutionUUID) returns (sila2.org.silastandard.examples.simpledeckserver.v1.ConsumableState_Responses) {}
   /* Returns the date the SiLA Server has been started in. */
   rpc Get_StartDate (sila2.org.silastandard.examples.simpledeckserver.v1.Get_StartDate_Parameters) returns (sila2.org.silastandard.examples.simpledeckserver.v1.Get_StartDate_Responses) {}
   /* Returns the Status of the workbench. */
@@ -49,6 +61,52 @@ message MoveItem_Parameters {
 /* Responses of MoveItem */
 message MoveItem_Responses {
   sila2.org.silastandard.Boolean Result = 1;  /* The result of the operation. */
+}
+
+/* Parameters for NewConsumable */
+message NewConsumable_Parameters {
+  sila2.org.silastandard.String ItemType = 1;  /* Item Type */
+  sila2.org.silastandard.Integer Amount = 2;  /* Amount */
+}
+
+/* Responses of NewConsumable */
+message NewConsumable_Responses {
+  sila2.org.silastandard.Boolean Result = 1;  /* Result */
+}
+
+/* Parameters for Refill */
+message Refill_Parameters {
+  sila2.org.silastandard.String ItemType = 1;  /* Item Type */
+  sila2.org.silastandard.Integer Amount = 2;  /* Amount */
+}
+
+/* Responses of Refill */
+message Refill_Responses {
+  sila2.org.silastandard.Boolean Result = 1;  /* Result */
+}
+
+/* Parameters for Use */
+message Use_Parameters {
+  sila2.org.silastandard.String ItemType = 1;  /* Item Type */
+  sila2.org.silastandard.Integer Amount = 2;  /* Amount */
+}
+
+/* Responses of Use */
+message Use_Responses {
+  sila2.org.silastandard.Boolean Result = 1;  /* Result */
+}
+
+/* Parameters for ConsumableState */
+message ConsumableState_Parameters {
+}
+
+/* Responses of ConsumableState */
+message ConsumableState_Responses {
+  message Response_Struct {
+    sila2.org.silastandard.String Item = 1;  /* Item */
+    sila2.org.silastandard.Integer Amount = 2;  /* Amount */
+  }
+  repeated sila2.org.silastandard.examples.simpledeckserver.v1.ConsumableState_Responses.Response_Struct Response = 1;  /* Response */
 }
 
 /* Parameters for StartDate */

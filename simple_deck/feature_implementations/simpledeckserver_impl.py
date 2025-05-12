@@ -6,10 +6,14 @@ from typing import TYPE_CHECKING
 from sila2.server import MetadataDict
 
 from ..generated.simpledeckserver import (
+    ConsumableState_Responses,
     DeleteItem_Responses,
     MoveItem_Responses,
+    NewConsumable_Responses,
     PutItem_Responses,
+    Refill_Responses,
     SimpleDeckServerBase,
+    Use_Responses,
 )
 
 if TYPE_CHECKING:
@@ -66,4 +70,57 @@ class SimpleDeckServerImpl(SimpleDeckServerBase):
             return MoveItem_Responses(True)
         else:
             return MoveItem_Responses(False)
+        raise NotImplementedError  # TODO
+
+    def NewConsumable(self, ItemType: str, Amount: int, *, metadata: MetadataDict) -> NewConsumable_Responses:
+        url = "http://localhost:8000/move"
+        payload = {
+            "item_type": ItemType,
+            "amount": Amount
+        }
+        response = requests.post(url, json = payload)
+        print("New Consumable: Status Code: {}".format(response.status_code))
+        print("Response Body: {}".format(response.json()))
+        if response.status_code == 200:
+            return NewConsumable_Responses(True)
+        else:
+            return NewConsumable_Responses(False)
+        raise NotImplementedError  # TODO
+
+    def Refill(self, ItemType: str, Amount: int, *, metadata: MetadataDict) -> Refill_Responses:
+        url = "http://localhost:8000/refill"
+        payload = {
+            "item_type": ItemType,
+            "amount": Amount
+        }
+        response = requests.patch(url, json = payload)
+        print("Refill: Status Code: {}".format(response.status_code))
+        print("Response Body: {}".format(response.json()))
+        if response.status_code == 200:
+            return Refill_Responses(True)
+        else:
+            return Refill_Responses(False)
+        raise NotImplementedError  # TODO
+
+    def Use(self, ItemType: str, Amount: int, *, metadata: MetadataDict) -> Use_Responses:
+        url = "http://localhost:8000/use"
+        payload = {
+            "item_type": ItemType,
+            "amount": Amount
+        }
+        response = requests.patch(url, json = payload)
+        print("Use: Status Code: {}".format(response.status_code))
+        print("Response Body: {}".format(response.json()))
+        if response.status_code == 200:
+            return Use_Responses(True)
+        else:
+            return Use_Responses(False)
+        raise NotImplementedError  # TODO
+
+    def ConsumableState(
+        self, *, metadata: MetadataDict, instance: ObservableCommandInstance
+    ) -> ConsumableState_Responses:
+        # set execution status from `waiting` to `running`
+        instance.begin_execution()
+
         raise NotImplementedError  # TODO

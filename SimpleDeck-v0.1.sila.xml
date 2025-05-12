@@ -173,4 +173,109 @@
       </Structure>
     </DataType>
   </Property>
+
+  <Command>
+    <Identifier>NewConsumable</Identifier>
+    <DisplayName>NewConsumable</DisplayName>
+    <Description>New Consumable</Description>
+    <Observable>No</Observable>
+    <Parameter>
+      <Identifier>ItemType</Identifier>
+      <DisplayName>Item Type</DisplayName>
+      <Description>Item Type</Description>
+      <DataType><Basic>String</Basic></DataType>
+    </Parameter>
+    <Parameter>
+      <Identifier>Amount</Identifier>
+      <DisplayName>Amount</DisplayName>
+      <Description>Amount</Description>
+      <DataType><Basic>Integer</Basic></DataType>
+    </Parameter>
+    <Response>
+      <Identifier>Result</Identifier>
+      <DisplayName>Result</DisplayName>
+      <Description>Result</Description>
+      <DataType><Basic>Boolean</Basic></DataType>
+    </Response>
+  </Command>
+  <Command>
+    <Identifier>Refill</Identifier>
+    <DisplayName>Refill</DisplayName>
+    <Description>Refill</Description>
+    <Observable>No</Observable>
+    <Parameter>
+      <Identifier>ItemType</Identifier>
+      <DisplayName>Item Type</DisplayName>
+      <Description>Item Type</Description>
+      <DataType><Basic>String</Basic></DataType>
+    </Parameter>
+    <Parameter>
+      <Identifier>Amount</Identifier>
+      <DisplayName>Amount</DisplayName>
+      <Description>Amount</Description>
+      <DataType><Basic>Integer</Basic></DataType>
+    </Parameter>
+    <Response>
+      <Identifier>Result</Identifier>
+      <DisplayName>Result</DisplayName>
+      <Description>Result</Description>
+      <DataType><Basic>Boolean</Basic></DataType>
+    </Response>
+  </Command>
+  <Command>
+    <Identifier>Use</Identifier>
+    <DisplayName>Use</DisplayName>
+    <Description>Use</Description>
+    <Observable>No</Observable>
+    <Parameter>
+      <Identifier>ItemType</Identifier>
+      <DisplayName>Item Type</DisplayName>
+      <Description>Item Type</Description>
+      <DataType><Basic>String</Basic></DataType>
+    </Parameter>
+    <Parameter>
+      <Identifier>Amount</Identifier>
+      <DisplayName>Amount</DisplayName>
+      <Description>Amount</Description>
+      <DataType><Basic>Integer</Basic></DataType>
+    </Parameter>
+    <Response>
+      <Identifier>Result</Identifier>
+      <DisplayName>Result</DisplayName>
+      <Description>Result</Description>
+      <DataType><Basic>Boolean</Basic></DataType>
+    </Response>
+  </Command>
+  
+  <Command>
+    <Identifier>ConsumableState</Identifier>
+    <DisplayName>ConsumableState</DisplayName>
+    <Description>ConsumableState</Description>
+    <Observable>Yes</Observable>
+    <Response>
+      <Identifier>Response</Identifier>
+      <DisplayName>Response</DisplayName>
+      <Description>Response</Description>
+      <DataType>
+        <List>
+          <DataType>
+            <Structure>
+              <Element>
+                <Identifier>Item</Identifier>
+                <DisplayName>Item</DisplayName>
+                <Description>Item</Description>
+                <DataType><Basic>String</Basic></DataType>
+              </Element>
+              <Element>
+                <Identifier>Amount</Identifier>
+                <DisplayName>Amount</DisplayName>
+                <Description>Amount</Description>
+                <DataType><Basic>Integer</Basic></DataType>
+              </Element>
+            </Structure>
+          </DataType>
+        </List>
+      </DataType>
+    </Response>
+  </Command>
 </Feature>

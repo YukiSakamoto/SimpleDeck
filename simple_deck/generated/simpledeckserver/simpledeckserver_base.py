@@ -2,12 +2,21 @@
 from __future__ import annotations
 
 from abc import ABC, abstractmethod
+from datetime import timedelta
 from queue import Queue
 from typing import TYPE_CHECKING, Any, Optional, Union
 
-from sila2.server import FeatureImplementationBase, MetadataDict
+from sila2.server import FeatureImplementationBase, MetadataDict, ObservableCommandInstance
 
-from .simpledeckserver_types import DeleteItem_Responses, MoveItem_Responses, PutItem_Responses
+from .simpledeckserver_types import (
+    ConsumableState_Responses,
+    DeleteItem_Responses,
+    MoveItem_Responses,
+    NewConsumable_Responses,
+    PutItem_Responses,
+    Refill_Responses,
+    Use_Responses,
+)
 
 if TYPE_CHECKING:
 
@@ -20,6 +29,8 @@ class SimpleDeckServerBase(FeatureImplementationBase, ABC):
     _Status_producer_queue: Queue[Union[Any, Exception]]
     _Status_current_value: Any
 
+    ConsumableState_default_lifetime_of_execution: Optional[timedelta]
+
     def __init__(self, parent_server: Server):
         """
             Example implementation of a minimum Feature. Provides a Greeting to the Client
@@ -28,6 +39,8 @@ class SimpleDeckServerBase(FeatureImplementationBase, ABC):
         super().__init__(parent_server=parent_server)
 
         self._Status_producer_queue = Queue()
+
+        self.ConsumableState_default_lifetime_of_execution = None
 
     @abstractmethod
     def get_StartDate(self, *, metadata: MetadataDict) -> str:
@@ -136,6 +149,81 @@ class SimpleDeckServerBase(FeatureImplementationBase, ABC):
         :return:
 
             - Result: The result of the operation.
+
+
+        """
+
+    @abstractmethod
+    def NewConsumable(self, ItemType: str, Amount: int, *, metadata: MetadataDict) -> NewConsumable_Responses:
+        """
+        New Consumable
+
+
+        :param ItemType: Item Type
+
+        :param Amount: Amount
+
+        :param metadata: The SiLA Client Metadata attached to the call
+
+        :return:
+
+            - Result: Result
+
+
+        """
+
+    @abstractmethod
+    def Refill(self, ItemType: str, Amount: int, *, metadata: MetadataDict) -> Refill_Responses:
+        """
+        Refill
+
+
+        :param ItemType: Item Type
+
+        :param Amount: Amount
+
+        :param metadata: The SiLA Client Metadata attached to the call
+
+        :return:
+
+            - Result: Result
+
+
+        """
+
+    @abstractmethod
+    def Use(self, ItemType: str, Amount: int, *, metadata: MetadataDict) -> Use_Responses:
+        """
+        Use
+
+
+        :param ItemType: Item Type
+
+        :param Amount: Amount
+
+        :param metadata: The SiLA Client Metadata attached to the call
+
+        :return:
+
+            - Result: Result
+
+
+        """
+
+    @abstractmethod
+    def ConsumableState(
+        self, *, metadata: MetadataDict, instance: ObservableCommandInstance
+    ) -> ConsumableState_Responses:
+        """
+        ConsumableState
+
+
+        :param metadata: The SiLA Client Metadata attached to the call
+        :param instance: The command instance, enabling sending status updates to subscribed clients
+
+        :return:
+
+            - Response: Response
 
 
         """
