@@ -10,7 +10,7 @@ from typing import TYPE_CHECKING
 
 if TYPE_CHECKING:
 
-    from typing import Any, Iterable, Optional
+    from typing import Any, Iterable, List, Optional
 
     from sila2.client import (
         ClientMetadataInstance,
@@ -19,7 +19,6 @@ if TYPE_CHECKING:
         ClientUnobservableProperty,
     )
     from simpledeckserver_types import (
-        ConsumableState_Responses,
         DeleteItem_Responses,
         MoveItem_Responses,
         NewConsumable_Responses,
@@ -38,6 +37,11 @@ class SimpleDeckServerClient:
     StartDate: ClientUnobservableProperty[str]
     """
     Returns the date the SiLA Server has been started in.
+    """
+
+    ConsumableState: ClientUnobservableProperty[List[Any]]
+    """
+    ConsumableState
     """
 
     Status: ClientObservableProperty[Any]
@@ -79,7 +83,7 @@ class SimpleDeckServerClient:
 
     def Refill(
         self, ItemType: str, Amount: int, *, metadata: Optional[Iterable[ClientMetadataInstance]] = None
-    ) -> Refill_Responses:
+    ) -> ClientObservableCommandInstance[Refill_Responses]:
         """
         Refill
         """
@@ -87,16 +91,8 @@ class SimpleDeckServerClient:
 
     def Use(
         self, ItemType: str, Amount: int, *, metadata: Optional[Iterable[ClientMetadataInstance]] = None
-    ) -> Use_Responses:
+    ) -> ClientObservableCommandInstance[Use_Responses]:
         """
         Use
-        """
-        ...
-
-    def ConsumableState(
-        self, *, metadata: Optional[Iterable[ClientMetadataInstance]] = None
-    ) -> ClientObservableCommandInstance[ConsumableState_Responses]:
-        """
-        ConsumableState
         """
         ...

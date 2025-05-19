@@ -3,7 +3,6 @@ from .simpledeckserver_base import SimpleDeckServerBase
 from .simpledeckserver_client import SimpleDeckServerClient
 from .simpledeckserver_feature import SimpleDeckServerFeature
 from .simpledeckserver_types import (
-    ConsumableState_Responses,
     DeleteItem_Responses,
     MoveItem_Responses,
     NewConsumable_Responses,
@@ -22,5 +21,4 @@ __all__ = [
     "NewConsumable_Responses",
     "Refill_Responses",
     "Use_Responses",
-    "ConsumableState_Responses",
 ]

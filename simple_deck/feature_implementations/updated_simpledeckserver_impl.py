@@ -2,12 +2,11 @@
 from __future__ import annotations
 
 from datetime import timedelta
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any, List
 
 from sila2.server import MetadataDict, ObservableCommandInstance
 
 from ..generated.simpledeckserver import (
-    ConsumableState_Responses,
     DeleteItem_Responses,
     MoveItem_Responses,
     NewConsumable_Responses,
@@ -28,9 +27,13 @@ class SimpleDeckServerImpl(SimpleDeckServerBase):
         # Default lifetime of observable command instances. Possible values:
         # None: Command instance is valid and stored in memory until server shutdown
         # datetime.timedelta: Command instance is deleted after this duration, can be increased during command runtime
-        self.ConsumableState_default_lifetime_of_execution = timedelta(minutes=30)
+        self.Refill_default_lifetime_of_execution = timedelta(minutes=30)
+        self.Use_default_lifetime_of_execution = timedelta(minutes=30)
 
     def get_StartDate(self, *, metadata: MetadataDict) -> str:
+        raise NotImplementedError  # TODO
+
+    def get_ConsumableState(self, *, metadata: MetadataDict) -> List[Any]:
         raise NotImplementedError  # TODO
 
     def PutItem(self, Spot: str, UUID: str, Type: str, *, metadata: MetadataDict) -> PutItem_Responses:
@@ -45,15 +48,17 @@ class SimpleDeckServerImpl(SimpleDeckServerBase):
     def NewConsumable(self, ItemType: str, Amount: int, *, metadata: MetadataDict) -> NewConsumable_Responses:
         raise NotImplementedError  # TODO
 
-    def Refill(self, ItemType: str, Amount: int, *, metadata: MetadataDict) -> Refill_Responses:
+    def Refill(
+        self, ItemType: str, Amount: int, *, metadata: MetadataDict, instance: ObservableCommandInstance
+    ) -> Refill_Responses:
+        # set execution status from `waiting` to `running`
+        instance.begin_execution()
+
         raise NotImplementedError  # TODO
 
-    def Use(self, ItemType: str, Amount: int, *, metadata: MetadataDict) -> Use_Responses:
-        raise NotImplementedError  # TODO
-
-    def ConsumableState(
-        self, *, metadata: MetadataDict, instance: ObservableCommandInstance
-    ) -> ConsumableState_Responses:
+    def Use(
+        self, ItemType: str, Amount: int, *, metadata: MetadataDict, instance: ObservableCommandInstance
+    ) -> Use_Responses:
         # set execution status from `waiting` to `running`
         instance.begin_execution()
 

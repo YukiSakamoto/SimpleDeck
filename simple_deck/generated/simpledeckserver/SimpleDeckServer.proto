@@ -15,19 +15,23 @@ service SimpleDeckServer {
   /* New Consumable */
   rpc NewConsumable (sila2.org.silastandard.examples.simpledeckserver.v1.NewConsumable_Parameters) returns (sila2.org.silastandard.examples.simpledeckserver.v1.NewConsumable_Responses) {}
   /* Refill */
-  rpc Refill (sila2.org.silastandard.examples.simpledeckserver.v1.Refill_Parameters) returns (sila2.org.silastandard.examples.simpledeckserver.v1.Refill_Responses) {}
+  rpc Refill (sila2.org.silastandard.examples.simpledeckserver.v1.Refill_Parameters) returns (sila2.org.silastandard.CommandConfirmation) {}
+  /* Monitor the state of Refill */
+  rpc Refill_Info (sila2.org.silastandard.CommandExecutionUUID) returns (stream sila2.org.silastandard.ExecutionInfo) {}
+  /* Retrieve result of Refill */
+  rpc Refill_Result(sila2.org.silastandard.CommandExecutionUUID) returns (sila2.org.silastandard.examples.simpledeckserver.v1.Refill_Responses) {}
   /* Use */
-  rpc Use (sila2.org.silastandard.examples.simpledeckserver.v1.Use_Parameters) returns (sila2.org.silastandard.examples.simpledeckserver.v1.Use_Responses) {}
-  /* ConsumableState */
-  rpc ConsumableState (sila2.org.silastandard.examples.simpledeckserver.v1.ConsumableState_Parameters) returns (sila2.org.silastandard.CommandConfirmation) {}
-  /* Monitor the state of ConsumableState */
-  rpc ConsumableState_Info (sila2.org.silastandard.CommandExecutionUUID) returns (stream sila2.org.silastandard.ExecutionInfo) {}
-  /* Retrieve result of ConsumableState */
-  rpc ConsumableState_Result(sila2.org.silastandard.CommandExecutionUUID) returns (sila2.org.silastandard.examples.simpledeckserver.v1.ConsumableState_Responses) {}
+  rpc Use (sila2.org.silastandard.examples.simpledeckserver.v1.Use_Parameters) returns (sila2.org.silastandard.CommandConfirmation) {}
+  /* Monitor the state of Use */
+  rpc Use_Info (sila2.org.silastandard.CommandExecutionUUID) returns (stream sila2.org.silastandard.ExecutionInfo) {}
+  /* Retrieve result of Use */
+  rpc Use_Result(sila2.org.silastandard.CommandExecutionUUID) returns (sila2.org.silastandard.examples.simpledeckserver.v1.Use_Responses) {}
   /* Returns the date the SiLA Server has been started in. */
   rpc Get_StartDate (sila2.org.silastandard.examples.simpledeckserver.v1.Get_StartDate_Parameters) returns (sila2.org.silastandard.examples.simpledeckserver.v1.Get_StartDate_Responses) {}
   /* Returns the Status of the workbench. */
   rpc Subscribe_Status (sila2.org.silastandard.examples.simpledeckserver.v1.Subscribe_Status_Parameters) returns (stream sila2.org.silastandard.examples.simpledeckserver.v1.Subscribe_Status_Responses) {}
+  /* ConsumableState */
+  rpc Get_ConsumableState (sila2.org.silastandard.examples.simpledeckserver.v1.Get_ConsumableState_Parameters) returns (sila2.org.silastandard.examples.simpledeckserver.v1.Get_ConsumableState_Responses) {}
 }
 
 /* Parameters for PutItem */
@@ -96,19 +100,6 @@ message Use_Responses {
   sila2.org.silastandard.Boolean Result = 1;  /* Result */
 }
 
-/* Parameters for ConsumableState */
-message ConsumableState_Parameters {
-}
-
-/* Responses of ConsumableState */
-message ConsumableState_Responses {
-  message Response_Struct {
-    sila2.org.silastandard.String Item = 1;  /* Item */
-    sila2.org.silastandard.Integer Amount = 2;  /* Amount */
-  }
-  repeated sila2.org.silastandard.examples.simpledeckserver.v1.ConsumableState_Responses.Response_Struct Response = 1;  /* Response */
-}
-
 /* Parameters for StartDate */
 message Get_StartDate_Parameters {
 }
@@ -135,4 +126,17 @@ message Subscribe_Status_Responses {
     sila2.org.silastandard.String H = 8;  /* Spot H */
   }
   sila2.org.silastandard.examples.simpledeckserver.v1.Subscribe_Status_Responses.Status_Struct Status = 1;  /* Returns the Status of the workbench. */
+}
+
+/* Parameters for ConsumableState */
+message Get_ConsumableState_Parameters {
+}
+
+/* Responses of ConsumableState */
+message Get_ConsumableState_Responses {
+  message ConsumableState_Struct {
+    sila2.org.silastandard.String Item = 1;  /* Item */
+    sila2.org.silastandard.Integer Amount = 2;  /* Amount */
+  }
+  repeated sila2.org.silastandard.examples.simpledeckserver.v1.Get_ConsumableState_Responses.ConsumableState_Struct ConsumableState = 1;  /* ConsumableState */
 }
